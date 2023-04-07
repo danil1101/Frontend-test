@@ -1,30 +1,61 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+  <header class="header">
+    <div class="header__container">
+      <div class="header__menu">
+        <router-link to="/" class="header__logo">Shop</router-link>
+        <router-link to="/cart" class="header__cart cart">
+          <img src="./assets/icon/cart.svg" class="cart__image" alt="">
+          <div class="cart__count">{{ cartStore.totalQuantity }}</div>
+        </router-link>
+      </div>
+    </div>
+  </header>
   <router-view />
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script lang="ts" setup>
+import { useCartStore } from "@/stores/CartStore";
+const cartStore = useCartStore();
+</script>
+
+
+<style lang="scss" scoped>
+@import "./style.scss";
+
+
+
+.header {
+  background-color: $colorLight;
+
+  color: #fff;
+
+  &__menu {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    justify-content: space-between;
+  }
+
+  &__logo {
+    font-size: 23px;
+  }
+
 }
 
-nav {
-  padding: 30px;
+.cart {
+  position: relative;
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+  &__count {
+    top: -5px;
+    left: 18px;
+    border-radius: 50%;
+    padding: 0 3px;
+    background: #000;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    position: absolute;
   }
 }
 </style>
