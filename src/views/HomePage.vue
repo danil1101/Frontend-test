@@ -14,9 +14,15 @@ import Catalog from "@/components/Catalog.vue";
 
 <style lang="scss" scoped>
 .home {
+  position: relative;
+
   &__container {
-    position: relative;
     display: flex;
+
+    @media (max-width: 768.98px) {
+      flex-wrap: wrap;
+      flex-direction: column;
+    }
   }
 
   margin-top: 30px;

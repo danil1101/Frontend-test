@@ -1,12 +1,14 @@
 <template>
-	<button type="button" class="icon-menu"><span></span></button>
 	<div class="sidebar">
 		<div class="sidebar__body">
 			<div class="sidebar__selections selection">
 				<div class="selection__item item">
-					<div class="item__title">Бренды</div>
-					<div class="item__body">
-						<div class="checkbox" v-for="brand in dataBrands" :key="brand.id">
+					<a class="item__title" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+						aria-controls="collapseExample">
+						Бренды
+					</a>
+					<div class="collapse item__body" id="collapseExample">
+						<div class="checkbox " v-for="brand in dataBrands" :key="brand.id">
 							<input :id="brand.code" ref="checkbox" class="checkbox__input" type="checkbox" :value="brand.sort">
 							<label :for="brand.code" class="checkbox__label">
 								<span class="checkbox__text">{{ brand.title }}</span>
@@ -37,6 +39,7 @@ const resetCheckboxs = () => {
 		checkbox.checked = false;
 	});
 }
+
 </script>
 
 <style lang="scss" scoped>
@@ -44,12 +47,6 @@ const resetCheckboxs = () => {
 
 .sidebar {
 	flex: 0 1 20%;
-
-	@media (max-width: 767.98px) {
-		flex: 0 1 50%;
-		position: fixed;
-		left: -100%;
-	}
 
 
 	&__body {
@@ -88,7 +85,7 @@ const resetCheckboxs = () => {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
-	margin-bottom: 30px;
+	margin-bottom: 20px;
 
 	&__item {
 		display: flex;
@@ -99,10 +96,33 @@ const resetCheckboxs = () => {
 .item {
 
 	&__title {
-		margin-bottom: 10px;
+		&:not(.collapsed)::after {
+			transform: rotate(90deg);
+		}
+
+		position: relative;
+
+		&::after {
+			content: '';
+			position: absolute;
+			top: 6px;
+			right: 0;
+			display: inline-block;
+			width: 1.20em;
+			line-height: 0;
+			content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%280,0,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+			transition: transform 0.25s ease;
+			transform-origin: 0.5em 50%;
+		}
+
+
 		font-size: 18px;
 		font-weight: 500;
 		color: $colorDark;
+		margin: 0;
+		padding: 0;
+		margin-bottom: 10px;
+		text-align: left;
 	}
 
 	&__body {
@@ -151,63 +171,6 @@ const resetCheckboxs = () => {
 			text-align: center;
 
 			display: inline-block;
-		}
-	}
-}
-
-.icon-menu {
-	display: none;
-
-	@media (max-width: 767.98px) {
-		display: block;
-		position: absolute;
-		width: 30px;
-		left: 0;
-		top: -10px;
-		height: 18px;
-		cursor: pointer;
-		z-index: 5;
-
-		span,
-		&::before,
-		&::after {
-			content: "";
-			transition: all 0.3s ease 0s;
-			position: absolute;
-			width: 100%;
-			height: 2px;
-			background-color: $colorDark;
-		}
-
-		&::before {
-			top: 0;
-		}
-
-		&::after {
-			bottom: 0;
-		}
-
-		span {
-			top: calc(50% - 1px);
-		}
-
-		.menu-open & {
-			span {
-				width: 0;
-			}
-
-			&::before,
-			&::after {}
-
-			&::before {
-				top: calc(50% - 1px);
-				transform: rotate(-45deg);
-			}
-
-			&::after {
-				bottom: calc(50% - 1px);
-				transform: rotate(45deg);
-			}
 		}
 	}
 }
