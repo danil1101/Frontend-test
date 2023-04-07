@@ -53,9 +53,13 @@ const nextPage = () => {
 	flex: 1 1 auto;
 	margin-left: 50px;
 
+	@media (max-width: 767.98px) {
+		margin: 0;
+	}
+
 	&__row {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 		row-gap: 10px;
 		column-gap: 5px;
 	}
@@ -76,14 +80,23 @@ const nextPage = () => {
 .item {
 	color: #000;
 
+	@media (max-width: 544.98px) {
+		justify-content: center;
+		text-align: center;
+	}
+
 	&__image {
 		img {
-			width: 100px;
-			height: 100px;
+			width: 100%;
+			height: 100%;
 			object-fit: cover;
 		}
 
 		max-width: 300px;
+
+		@media (max-width: 767.98px) {
+			max-width: 250px;
+		}
 	}
 
 	&__body {

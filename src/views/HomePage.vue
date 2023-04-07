@@ -15,6 +15,7 @@ import Catalog from "@/components/Catalog.vue";
 <style lang="scss" scoped>
 .home {
   &__container {
+    position: relative;
     display: flex;
   }
 

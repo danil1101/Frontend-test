@@ -1,4 +1,5 @@
 <template>
+	<button type="button" class="icon-menu"><span></span></button>
 	<div class="sidebar">
 		<div class="sidebar__body">
 			<div class="sidebar__selections selection">
@@ -44,8 +45,17 @@ const resetCheckboxs = () => {
 .sidebar {
 	flex: 0 1 20%;
 
+	@media (max-width: 767.98px) {
+		flex: 0 1 50%;
+		position: fixed;
+		left: -100%;
+	}
+
+
 	&__body {
 		display: flex;
+
+
 		flex-direction: column;
 	}
 
@@ -141,6 +151,63 @@ const resetCheckboxs = () => {
 			text-align: center;
 
 			display: inline-block;
+		}
+	}
+}
+
+.icon-menu {
+	display: none;
+
+	@media (max-width: 767.98px) {
+		display: block;
+		position: absolute;
+		width: 30px;
+		left: 0;
+		top: -10px;
+		height: 18px;
+		cursor: pointer;
+		z-index: 5;
+
+		span,
+		&::before,
+		&::after {
+			content: "";
+			transition: all 0.3s ease 0s;
+			position: absolute;
+			width: 100%;
+			height: 2px;
+			background-color: $colorDark;
+		}
+
+		&::before {
+			top: 0;
+		}
+
+		&::after {
+			bottom: 0;
+		}
+
+		span {
+			top: calc(50% - 1px);
+		}
+
+		.menu-open & {
+			span {
+				width: 0;
+			}
+
+			&::before,
+			&::after {}
+
+			&::before {
+				top: calc(50% - 1px);
+				transform: rotate(-45deg);
+			}
+
+			&::after {
+				bottom: calc(50% - 1px);
+				transform: rotate(45deg);
+			}
 		}
 	}
 }
