@@ -4,7 +4,7 @@
       <div class="header__menu">
         <router-link to="/" class="header__logo">Shop</router-link>
         <router-link to="/cart" class="header__cart cart">
-          <img src="./assets/icon/cart.svg" class="cart__image" alt="">
+          <img src="/icon/cart.svg" class="cart__image" alt="">
           <div class="cart__count">{{ cartStore.totalQuantity }}</div>
         </router-link>
       </div>
