@@ -27,7 +27,6 @@
 								v-model="selectedSortOption" />
 							<span class="options__label"> {{ sortOption }}</span>
 						</label>
-
 					</div>
 				</div>
 			</div>
@@ -39,9 +38,10 @@
 	</div>
 </template>
 
+
 <script setup lang="ts">
 import dataBrands from "../assets/brands.json";
-import { defineEmits, ref, watch } from 'vue';
+import { defineEmits, ref } from 'vue';
 
 const emits = defineEmits(['sendSort']);
 
@@ -56,9 +56,9 @@ const sendFilter = () => {
 }
 
 const resetCheckboxs = () => {
-	const checkboxs = document.querySelectorAll('.checkbox__input');
-	checkboxs.forEach(checkbox => {
-		checkbox.checked = false;
+	const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+	checkboxes.forEach((checkbox) => {
+		(checkbox as HTMLInputElement).checked = false;
 	});
 }
 

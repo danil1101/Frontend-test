@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts" setup>
-import Sidebar from "@/components/Sidebar.vue";
+import Sidebar from "../components/Sidebar.vue";
 import Catalog from "@/components/Catalog.vue";
 import { ref } from 'vue';
 
@@ -22,6 +22,7 @@ function handleSort(value: any) {
 <style lang="scss" scoped>
 .home {
   position: relative;
+  margin-top: 30px;
 
   &__container {
     display: flex;
@@ -32,6 +33,5 @@ function handleSort(value: any) {
     }
   }
 
-  margin-top: 30px;
 }
 </style>

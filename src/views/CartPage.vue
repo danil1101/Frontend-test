@@ -119,9 +119,12 @@ onMounted(() => {
 
 const plusQuantity = (id: number) => {
 	cartStore.products.find((i: any) => i.id === id).quantity++;
+	localStorage.setItem('cart', JSON.stringify(cartStore.products));
 }
+
 const minusQuantity = (id: number) => {
-	cartStore.products.find((i: any) => i.id === id).quantity--;
+	cartStore.products.find((i: any) => i.id === id).quantity ? cartStore.products.find((i: any) => i.id === id).quantity-- : null;
+	localStorage.setItem('cart', JSON.stringify(cartStore.products));
 }
 </script>
 
@@ -211,10 +214,10 @@ const minusQuantity = (id: number) => {
 		display: flex;
 		flex-direction: column;
 		gap: 5px;
-		margin: 0 auto;
 
 		@media (max-width: 425.98px) {
 			flex: 1 1 100%;
+			margin: 0 auto;
 		}
 	}
 
