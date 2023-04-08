@@ -14,20 +14,41 @@
 		</div>
 		<div class="pagination">
 			<button @click="previousPage" class="pagination__button" :disabled="currentPage === 1">Previous</button>
-			<button @click="nextPage" class="pagination__button" :disabled="currentPage === totalPages">Next</button>
+			<button @click="nextPage" class="pagination__button"
+				:disabled="currentPage === totalPages || currentPage === 1">Next</button>
 		</div>
 	</div>
 </template>
 
 <script setup lang="ts">
 import dataCatalog from "../assets/products.json";
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { useCartStore } from "@/stores/CartStore";
+import { defineProps } from 'vue';
 const cartStore = useCartStore();
 
 const addProduct = (id: number) => {
 	cartStore.addProduct(id)
 }
+
+
+const props = defineProps({
+	sort: {
+		type: Object
+	},
+});
+
+const filterProducts = computed(() => {
+	if (props.sort?.brand?.length) {
+		return dataCatalog.filter((i: any) => props.sort?.brand.includes(i.brand))
+	} else if (props.sort?.price == 'price-low-to-high') {
+		return dataCatalog.sort((a: any, b: any) => a.regular_price.value - b.regular_price.value);
+	} else if (props.sort?.price == 'price-high-to-low') {
+		return dataCatalog.sort((a: any, b: any) => b.regular_price.value - a.regular_price.value);
+	} else {
+		return dataCatalog
+	}
+})
 
 const productsPerPage = 6;
 const currentPage = ref(1);
@@ -36,8 +57,9 @@ const totalPages = computed(() => Math.ceil(dataCatalog.length / productsPerPage
 const paginatedProducts = computed(() => {
 	const startIndex = (currentPage.value - 1) * productsPerPage;
 	const endIndex = startIndex + productsPerPage;
-	return dataCatalog.slice(startIndex, endIndex);
+	return filterProducts.value.slice(startIndex, endIndex);
 });
+
 
 const previousPage = () => {
 	currentPage.value -= 1;

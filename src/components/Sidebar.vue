@@ -3,22 +3,36 @@
 		<div class="sidebar__body">
 			<div class="sidebar__selections selection">
 				<div class="selection__item item">
-					<a class="item__title" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+					<a class="item__title" data-bs-toggle="collapse" href="#brand" role="button" aria-expanded="false"
 						aria-controls="collapseExample">
 						Бренды
 					</a>
-					<div class="collapse item__body" id="collapseExample">
+					<div class="collapse item__body" id="brand">
 						<div class="checkbox " v-for="brand in dataBrands" :key="brand.id">
-							<input :id="brand.code" ref="checkbox" class="checkbox__input" type="checkbox" :value="brand.sort">
+							<input :id="brand.code" v-model="selectedBrands" class="checkbox__input" type="checkbox" :value="brand.id">
 							<label :for="brand.code" class="checkbox__label">
 								<span class="checkbox__text">{{ brand.title }}</span>
 							</label>
 						</div>
 					</div>
 				</div>
+				<div class="selection__item item">
+					<a class="item__title" data-bs-toggle="collapse" href="#price" role="button" aria-expanded="false"
+						aria-controls="collapseExample">
+						Сортировка по цене
+					</a>
+					<div class="collapse item__body" id="price">
+						<label class="options" v-for="sortOption in sortOptions" :key="sortOption">
+							<input type="radio" class="options__input" name="sortOption" :value="sortOption"
+								v-model="selectedSortOption" />
+							<span class="options__label"> {{ sortOption }}</span>
+						</label>
+
+					</div>
+				</div>
 			</div>
 			<div class="sidebar__footer">
-				<button class="sidebar__button button">Применить</button>
+				<button class="sidebar__button button" @click="sendFilter">Применить</button>
 				<button class="sidebar__reset" @click="resetCheckboxs">⨉ Сбросить</button>
 			</div>
 		</div>
@@ -26,12 +40,20 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, Ref } from "vue";
 import dataBrands from "../assets/brands.json";
-import dataCatalog from "../assets/products.json";
+import { defineEmits, ref, watch } from 'vue';
 
+const emits = defineEmits(['sendSort']);
 
+const selectedBrands = ref([])
 
+const selectedSortOption = ref([]);
+const sortOptions = ["price-low-to-high", "price-high-to-low"];
+
+const sendFilter = () => {
+	const sort = { 'brand': selectedBrands.value, 'price': selectedSortOption.value };
+	emits('sendSort', sort);
+}
 
 const resetCheckboxs = () => {
 	const checkboxs = document.querySelectorAll('.checkbox__input');
@@ -173,5 +195,75 @@ const resetCheckboxs = () => {
 			display: inline-block;
 		}
 	}
+}
+</style>
+
+<style lang="scss" scoped>
+@import "../style.scss";
+
+.options {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	position: relative;
+
+	&__item {
+		position: relative;
+		cursor: pointer;
+
+		&:not(:last-child) {
+			margin-bottom: em(5);
+		}
+	}
+
+	&__input {
+		width: 0;
+		height: 0;
+		opacity: 0;
+		position: absolute;
+
+		&:focus+.options__label:before {
+			box-shadow: 0 0 5px #000;
+		}
+
+		&:checked+.options__label:after {
+			transform: scale(1);
+		}
+	}
+
+	&__label {
+		display: inline-flex;
+		align-items: center;
+		cursor: pointer;
+		gap: 10px;
+
+		&:before {
+			content: "";
+			margin-top: 3px;
+			display: inline-block;
+			align-self: flex-start;
+			width: 20px;
+			height: 20px;
+			flex: 0 0 20px;
+			border-radius: 50%;
+			border: 1px solid #a7a9ac;
+		}
+
+		&:after {
+			content: "";
+			transition: all 0.3s ease 0s;
+			transform: scale(0);
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			margin-top: 3px;
+			display: inline-block;
+			background-color: $colorLight;
+			position: absolute;
+			left: 5px;
+			top: 5px;
+		}
+	}
+
 }
 </style>

@@ -70,7 +70,7 @@
 
 <script setup lang="ts">
 import axios from 'axios';
-import { ref, Ref, onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import dataCatalog from "../assets/products.json";
 import { useCartStore } from "@/stores/CartStore";
 const cartStore = useCartStore();
@@ -80,7 +80,7 @@ const number = ref<string>('')
 const products = ref([])
 
 const sendData = () => {
-	if (products.value.lengt && name.value && number.value) {
+	if (products.value.length && name.value && number.value) {
 		const orderData = {
 			customerName: name.value,
 			customerNumber: number.value,
@@ -88,9 +88,9 @@ const sendData = () => {
 		};
 
 		axios.post('https://app.aaccent.su/js/confirm.php', JSON.stringify(orderData))
-			.then(response => {
+			.then((response: { data: { result: string; }; }) => {
 				if (response.data.result === "ok") {
-					const modal = document.querySelector('.modal');
+					const modal = document.querySelector('.modal') as HTMLElement;
 					modal.classList.add('show');
 					modal.style.display = 'block';
 				}
@@ -100,7 +100,7 @@ const sendData = () => {
 }
 
 const closeModal = () => {
-	const modal = document.querySelector('.modal');
+	const modal = document.querySelector('.modal') as HTMLElement;
 	modal.classList.remove('show');
 	modal.style.display = 'none';
 }
@@ -114,8 +114,6 @@ const getSumm = () => {
 }
 
 onMounted(() => {
-	console.log(cartStore.products);
-
 	products.value = cartStore.products.map((i: any) => dataCatalog.find((j: any) => j.id === i.id));
 })
 
