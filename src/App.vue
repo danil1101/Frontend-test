@@ -5,7 +5,6 @@
         <router-link to="/" class="header__logo">Shop</router-link>
         <router-link to="/cart" class="header__cart cart">
           <img src="/icon/cart.svg" class="cart__image" alt="">
-
           <div class="cart__count">{{ cartStore.totalQuantity }}</div>
         </router-link>
       </div>
