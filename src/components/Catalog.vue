@@ -15,7 +15,7 @@
 		<div class="pagination">
 			<button @click="previousPage" class="pagination__button" :disabled="currentPage === 1">Previous</button>
 			<button @click="nextPage" class="pagination__button"
-				:disabled="currentPage === totalPages || currentPage === 1">Next</button>
+				:disabled="currentPage === totalPages || filterProducts.length <= 6">Next</button>
 		</div>
 	</div>
 </template>
@@ -55,6 +55,7 @@ const currentPage = ref(1);
 const totalPages = computed(() => Math.ceil(dataCatalog.length / productsPerPage));
 
 const paginatedProducts = computed(() => {
+	console.log();
 	const startIndex = (currentPage.value - 1) * productsPerPage;
 	const endIndex = startIndex + productsPerPage;
 	return filterProducts.value.slice(startIndex, endIndex);

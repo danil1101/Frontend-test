@@ -5,7 +5,7 @@
 			<div class="cart__count">В корзине {{ cartStore.totalQuantity }} товаров</div>
 			<div class="cart__row">
 				<div class="cart__item item" v-for="product in products" :key="product.id">
-					<img :src="product.image" :alt="product.title" class="item__image">
+					<img :src="'/Frontend-test' + product.image" :alt="product.title" class="item__image">
 					<p class="item__title">{{ product.title }}</p>
 					<div class="item__desc">
 						<p class="item__price">Цена: {{ product.regular_price.value }} {{ product.regular_price.currency }}</p>
