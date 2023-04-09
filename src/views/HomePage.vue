@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts" setup>
-import Sidebar from "../components/Sidebar.vue";
+import Sidebar from "@/components/Sidebar.vue";
 import Catalog from "@/components/Catalog.vue";
 import { ref } from 'vue';
 

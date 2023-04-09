@@ -22,15 +22,15 @@
 
 <script setup lang="ts">
 import dataCatalog from "../assets/products.json";
-import { ref, computed, watch } from 'vue';
+import { ref, computed } from 'vue';
 import { useCartStore } from "@/stores/CartStore";
 import { defineProps } from 'vue';
+
 const cartStore = useCartStore();
 
 const addProduct = (id: number) => {
 	cartStore.addProduct(id)
 }
-
 
 const props = defineProps({
 	sort: {

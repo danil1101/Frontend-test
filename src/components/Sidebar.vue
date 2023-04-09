@@ -3,11 +3,10 @@
 		<div class="sidebar__body">
 			<div class="sidebar__collapses collapse">
 				<div class="collapse__item item">
-					<a class="item__title" data-bs-toggle="collapse" href="#brand" role="button" aria-expanded="false"
-						aria-controls="brand">
+					<button class="item__title">
 						Бренды
-					</a>
-					<div class="collapse multi-collapse item__body" id="brand">
+					</button>
+					<div class="collapse item__body">
 						<div class="checkbox " v-for="brand in dataBrands" :key="brand.id">
 							<input :id="brand.code" v-model="selectedBrands" class="checkbox__input" type="checkbox" :value="brand.id">
 							<label :for="brand.code" class="checkbox__label">
@@ -17,11 +16,10 @@
 					</div>
 				</div>
 				<div class="collapse__item item">
-					<a class="item__title" data-bs-toggle="collapse" href="#price" role="button" aria-expanded="false"
-						aria-controls="price">
+					<button class="item__title">
 						Сортировка по цене
-					</a>
-					<div class="collapse multi-collapse item__body" id="price">
+					</button>
+					<div class="collapse item__body">
 						<label class="options" v-for="sortOption in sortOptions" :key="sortOption">
 							<input type="radio" class="options__input" name="sortOption" :value="sortOption"
 								v-model="selectedSortOption" />
@@ -45,7 +43,7 @@ import { defineEmits, ref } from 'vue';
 
 const emits = defineEmits(['sendSort']);
 
-const selectedBrands = ref([])
+const selectedBrands = ref([]);
 
 const selectedSortOption = ref([]);
 const sortOptions = ["price-low-to-high", "price-high-to-low"];
@@ -56,8 +54,8 @@ const sendFilter = () => {
 }
 
 const resetCheckboxs = () => {
-	selectedSortOption.value = []
-	selectedBrands.value = []
+	selectedSortOption.value = [];
+	selectedBrands.value = [];
 }
 
 </script>
@@ -68,11 +66,8 @@ const resetCheckboxs = () => {
 .sidebar {
 	flex: 0 1 20%;
 
-
 	&__body {
 		display: flex;
-
-
 		flex-direction: column;
 	}
 
@@ -116,24 +111,7 @@ const resetCheckboxs = () => {
 .item {
 
 	&__title {
-		&:not(.collapsed)::after {
-			transform: rotate(90deg);
-		}
 
-		position: relative;
-
-		&::after {
-			content: '';
-			position: absolute;
-			top: 6px;
-			right: 0;
-			display: inline-block;
-			width: 1.20em;
-			line-height: 0;
-			content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%280,0,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
-			transition: transform 0.25s ease;
-			transform-origin: 0.5em 50%;
-		}
 
 
 		font-size: 18px;
