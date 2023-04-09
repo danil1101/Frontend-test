@@ -8,7 +8,7 @@
 					<p class="item__price">Цена: {{ product.regular_price.value }} {{ product.regular_price.currency }}</p>
 					<p>Бренд: {{ product.brand }}</p>
 					<p>Артикул: {{ product.sku }}</p>
-					<button class="item__button button" @click="() => addProduct(product.id)">Добавить в коризну</button>
+					<button class="item__button button" @click.prevent="() => addProduct(product.id)">Добавить в коризну</button>
 				</div>
 			</div>
 		</div>
@@ -55,7 +55,6 @@ const currentPage = ref(1);
 const totalPages = computed(() => Math.ceil(dataCatalog.length / productsPerPage));
 
 const paginatedProducts = computed(() => {
-	console.log();
 	const startIndex = (currentPage.value - 1) * productsPerPage;
 	const endIndex = startIndex + productsPerPage;
 	return filterProducts.value.slice(startIndex, endIndex);
@@ -97,6 +96,7 @@ const nextPage = () => {
 
 	&__button {
 		font-size: 16px;
+		touch-action: manipulation;
 	}
 }
 

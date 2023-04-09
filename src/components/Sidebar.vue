@@ -1,13 +1,13 @@
 <template>
 	<div class="sidebar">
 		<div class="sidebar__body">
-			<div class="sidebar__selections selection">
-				<div class="selection__item item">
+			<div class="sidebar__collapses collapse">
+				<div class="collapse__item item">
 					<a class="item__title" data-bs-toggle="collapse" href="#brand" role="button" aria-expanded="false"
-						aria-controls="collapseExample">
+						aria-controls="brand">
 						Бренды
 					</a>
-					<div class="collapse item__body" id="brand">
+					<div class="collapse multi-collapse item__body" id="brand">
 						<div class="checkbox " v-for="brand in dataBrands" :key="brand.id">
 							<input :id="brand.code" v-model="selectedBrands" class="checkbox__input" type="checkbox" :value="brand.id">
 							<label :for="brand.code" class="checkbox__label">
@@ -16,12 +16,12 @@
 						</div>
 					</div>
 				</div>
-				<div class="selection__item item">
+				<div class="collapse__item item">
 					<a class="item__title" data-bs-toggle="collapse" href="#price" role="button" aria-expanded="false"
-						aria-controls="collapseExample">
+						aria-controls="price">
 						Сортировка по цене
 					</a>
-					<div class="collapse item__body" id="price">
+					<div class="collapse multi-collapse item__body" id="price">
 						<label class="options" v-for="sortOption in sortOptions" :key="sortOption">
 							<input type="radio" class="options__input" name="sortOption" :value="sortOption"
 								v-model="selectedSortOption" />
@@ -56,10 +56,8 @@ const sendFilter = () => {
 }
 
 const resetCheckboxs = () => {
-	const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-	checkboxes.forEach((checkbox) => {
-		(checkbox as HTMLInputElement).checked = false;
-	});
+	selectedSortOption.value = []
+	selectedBrands.value = []
 }
 
 </script>
@@ -78,7 +76,7 @@ const resetCheckboxs = () => {
 		flex-direction: column;
 	}
 
-	&__selections {
+	&__collapses {
 		display: flex;
 	}
 
@@ -103,7 +101,7 @@ const resetCheckboxs = () => {
 	}
 }
 
-.selection {
+.collapse {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;

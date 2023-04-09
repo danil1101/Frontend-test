@@ -7,13 +7,13 @@ export const useCartStore = defineStore({
 	}),
 	actions: {
 		addProduct(id: number) {
-			localStorage.setItem('cart', JSON.stringify(this.products));
 			const productIndex = this.products.findIndex(product => product.id === id);
 			if (productIndex !== -1) {
 				this.products[productIndex].quantity++;
 			} else {
 				this.products.push({ id, quantity: 1 });
 			}
+			localStorage.setItem('cart', JSON.stringify(this.products));
 		},
 	},
 	getters: {

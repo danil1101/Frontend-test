@@ -44,7 +44,7 @@ const cartStore = useCartStore();
 
 .cart {
   position: relative;
-
+  right: 20px;
 
   &__count {
     top: -5px;
