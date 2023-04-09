@@ -3,7 +3,7 @@
 		<div class="catalog__row">
 			<div class="catalog__item item" v-for="product in paginatedProducts" :key="product.id">
 				<div class="item__body">
-					<img :src="product.image" class="item__image" :alt="product.title">
+					<img :src="'/Frontend-test' + product.image" class="item__image" :alt="product.title">
 					<p class="item__title">{{ product.title }}</p>
 					<p class="item__price">Цена: {{ product.regular_price.value }} {{ product.regular_price.currency }}</p>
 					<p>Бренд: {{ product.brand }}</p>
