@@ -1,5 +1,5 @@
 const { defineConfig } = require("@vue/cli-service");
 module.exports = defineConfig({
-  baseURL: '/Frontend-test',
+  publicPath: '/Frontend-test',
   transpileDependencies: true,
 });
